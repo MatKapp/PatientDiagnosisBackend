@@ -8,7 +8,11 @@ from rest_framework.decorators import action
 def index(request):
     return HttpResponse("Hello world-patients")
 
-class PatientView(viewsets.GenericViewSet, mixins.ListModelMixin):
+class PatientView(viewsets.GenericViewSet, 
+                    mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin):
+                    
     serializer_class = serializers.PatientSerializer
     queryset = models.Patient.objects.all()
 
