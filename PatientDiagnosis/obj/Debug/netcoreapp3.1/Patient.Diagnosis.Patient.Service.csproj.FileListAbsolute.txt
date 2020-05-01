@@ -1,7 +1,0 @@
-C:\Users\kapis\source\repos\PatientDiagnosis\PatientDiagnosis\obj\Debug\netcoreapp3.1\Patient.Diagnosis.Patient.Service.csprojAssemblyReference.cache
-C:\Users\kapis\source\repos\PatientDiagnosis\PatientDiagnosis\obj\Debug\netcoreapp3.1\staticwebassets\Patient.Diagnosis.Patient.Service.StaticWebAssets.Manifest.cache
-C:\Users\kapis\source\repos\PatientDiagnosis\PatientDiagnosis\obj\Debug\netcoreapp3.1\staticwebassets\Patient.Diagnosis.Patient.Service.StaticWebAssets.xml
-C:\Users\kapis\source\repos\PatientDiagnosis\PatientDiagnosis\obj\Debug\netcoreapp3.1\Patient.Diagnosis.Patient.Service.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\kapis\source\repos\PatientDiagnosis\PatientDiagnosis\obj\Debug\netcoreapp3.1\Patient.Diagnosis.Patient.Service.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\kapis\source\repos\PatientDiagnosis\PatientDiagnosis\obj\Debug\netcoreapp3.1\Patient.Diagnosis.Patient.Service.AssemblyInfoInputs.cache
-C:\Users\kapis\source\repos\PatientDiagnosis\PatientDiagnosis\obj\Debug\netcoreapp3.1\Patient.Diagnosis.Patient.Service.AssemblyInfo.cs
