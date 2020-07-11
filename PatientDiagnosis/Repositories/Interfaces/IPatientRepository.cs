@@ -1,7 +1,7 @@
-﻿using PatientDiagnosis.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using PatientDiagnosis.Patients.Service.Models;
 
-namespace PatientDiagnosis.Repositories.Interfaces
+namespace PatientDiagnosis.Patients.Service.Repositories.Interfaces
 {
     public interface IPatientRepository
     {

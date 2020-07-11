@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using PatientDiagnosis.Examinations.Service.Models;
 
-namespace PatientDiagnosis.Modules
+namespace PatientDiagnosis.Examinations.Service.Modules
 {
     public class DatabaseModule : Module
     {

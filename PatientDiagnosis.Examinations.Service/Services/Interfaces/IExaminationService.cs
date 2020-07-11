@@ -1,7 +1,7 @@
-﻿using PatientDiagnosis.Examinations.Service.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using PatientDiagnosis.Examinations.Service.Models.Entities;
 
-namespace PatientDiagnosis.Services.Interfaces
+namespace PatientDiagnosis.Examinations.Service.Services.Interfaces
 {
     public interface IExaminationService
     {

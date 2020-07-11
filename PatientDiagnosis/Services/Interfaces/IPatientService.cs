@@ -1,10 +1,7 @@
-﻿using PatientDiagnosis.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using PatientDiagnosis.Patients.Service.Models;
 
-namespace PatientDiagnosis.Services.Interfaces
+namespace PatientDiagnosis.Patients.Service.Services.Interfaces
 {
     public interface IPatientService
     {

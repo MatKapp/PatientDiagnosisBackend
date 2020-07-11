@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,13 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PatientDiagnosis.Architecture;
+using PatientDiagnosis.Common.Architecture;
 using PatientDiagnosis.Common.Configuration;
-using PatientDiagnosis.Models;
-using System.Linq;
-using System.Reflection;
+using PatientDiagnosis.Patients.Service.Models;
 
-namespace PatientDiagnosis
+namespace PatientDiagnosis.Patients.Service
 {
     public class Startup
     {
@@ -28,6 +28,13 @@ namespace PatientDiagnosis
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
             services.AddControllers();
             services.AddEntityFrameworkNpgsql().AddDbContext<PatientDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("PatientConnection")));
             services.AddSwaggerGen(c =>
@@ -60,6 +67,9 @@ namespace PatientDiagnosis
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -69,7 +79,6 @@ namespace PatientDiagnosis
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
 
             app.UseAuthorization();
 

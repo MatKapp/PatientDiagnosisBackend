@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PatientDiagnosis.Examinations.Service.Models.Entities;
 using PatientDiagnosis.Examinations.Service.Models.Maps;
 
 namespace PatientDiagnosis.Examinations.Service.Models

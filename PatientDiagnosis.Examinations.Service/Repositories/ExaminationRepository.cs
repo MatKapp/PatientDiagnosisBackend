@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PatientDiagnosis.Examinations.Service.Models;
-using PatientDiagnosis.Repositories.Interfaces;
-using System.Threading.Tasks;
+using PatientDiagnosis.Examinations.Service.Models.DTO;
+using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
 
-namespace PatientDiagnosis.Repositories
+namespace PatientDiagnosis.Examinations.Service.Repositories
 {
     public class ExaminationRepository : IExaminationRepository
     {
@@ -32,6 +34,15 @@ namespace PatientDiagnosis.Repositories
         {
             examinations.Remove(examination);
             await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateExaminationPredictionsAsync(ExaminationPrediction prediction)
+        {
+            var examination = await GetAsync(prediction.Id);
+            examination.FirstClassPrediction = prediction.FirstClassPrediction;            
+            examination.SecondClassPrediction= prediction.SecondClassPrediction;
+            examinations.Update(examination);
+            context.SaveChanges();
         }
     }
 }

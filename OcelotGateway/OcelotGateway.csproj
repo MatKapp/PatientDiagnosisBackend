@@ -15,9 +15,6 @@
     <Content Update="Configuration\ocelot.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Configuration\ocelotHelloWorld.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
 

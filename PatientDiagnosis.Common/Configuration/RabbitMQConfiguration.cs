@@ -5,5 +5,6 @@
         public string Address { get; set; }
         public string Exchange { get; set; }
         public string Queue { get; set; }
+        public string QueueToListen { get; set; }
     }
 }

@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using PatientDiagnosis.Common.Architecture;
 using PatientDiagnosis.Common.Architecture.Interfaces;
 using PatientDiagnosis.Examinations.Service.Models;
-using PatientDiagnosis.Repositories.Interfaces;
-using System.Threading.Tasks;
+using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
 
-namespace PatientDiagnosis.Controllers
+namespace PatientDiagnosis.Examinations.Service.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -36,11 +39,11 @@ namespace PatientDiagnosis.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Examination examination)
+        public async Task<IActionResult> Post(Examination examination)
         {
             await examinationRepository.AddAsync(examination);
 
-            rabbitMqSendingMessageService.SendMessage("HelloWorlds");
+            rabbitMqSendingMessageService.SendMessage(JsonSerializer.Serialize(examination), RabbitExchangeMapping.Examination);
             return Ok();
         }
 

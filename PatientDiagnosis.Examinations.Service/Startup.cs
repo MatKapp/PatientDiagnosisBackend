@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,11 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PatientDiagnosis.Architecture;
+using PatientDiagnosis.Common.Architecture;
 using PatientDiagnosis.Common.Configuration;
 using PatientDiagnosis.Examinations.Service.Models;
-using System.Linq;
-using System.Reflection;
 
 namespace PatientDiagnosis.Examinations.Service
 {
@@ -27,6 +27,13 @@ namespace PatientDiagnosis.Examinations.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
             services.AddControllers();
             services.AddEntityFrameworkNpgsql().AddDbContext<ExaminationDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("ExaminationConnection")));
             services.AddSwaggerGen(c =>
@@ -44,7 +51,7 @@ namespace PatientDiagnosis.Examinations.Service
             var runtime = DependencyContext.Default.Target.Runtime;
             var assemblyNames = DependencyContext.Default.GetRuntimeAssemblyNames(runtime);
             var assemblies = assemblyNames
-                .Where(name => name.Name.StartsWith("PatientDiagnosis.Examinations"))
+                .Where(name => name.Name.StartsWith("PatientDiagnosis.Examinations") || name.Name.Contains("Common"))
                 .Distinct()
                 .Select(Assembly.Load)
                 .ToArray();
@@ -59,7 +66,9 @@ namespace PatientDiagnosis.Examinations.Service
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
+            app.UseRouting();
+            app.UseCors("CorsPolicy");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -67,8 +76,6 @@ namespace PatientDiagnosis.Examinations.Service
             });
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
 
             app.UseAuthorization();
 

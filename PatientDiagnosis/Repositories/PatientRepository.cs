@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PatientDiagnosis.Models;
-using PatientDiagnosis.Repositories.Interfaces;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using PatientDiagnosis.Patients.Service.Models;
+using PatientDiagnosis.Patients.Service.Repositories.Interfaces;
 
-namespace PatientDiagnosis.Repositories
+namespace PatientDiagnosis.Patients.Service.Repositories
 {
     public class PatientRepository : IPatientRepository
     {
