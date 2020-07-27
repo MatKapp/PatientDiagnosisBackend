@@ -23,7 +23,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44316
+          "Port": 44319
         }
       ],
       "UpstreamPathTemplate": "/api/Examinations/{action}",
@@ -40,7 +40,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44316
+          "Port": 44319
         }
       ],
       "UpstreamPathTemplate": "/api/Examinations/",
@@ -49,6 +49,20 @@
         "POST",
         "PUT",
         "DELETE"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Statistics/{action}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44321
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Statistics/{action}",
+      "UpstreamHttpMethod": [
+        "GET"
       ]
     },
     {

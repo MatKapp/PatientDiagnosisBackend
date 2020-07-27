@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PatientDiagnosis.Examinations.Service.Models;
 using PatientDiagnosis.Examinations.Service.Models.DTO;
@@ -44,5 +45,16 @@ namespace PatientDiagnosis.Examinations.Service.Repositories
             examinations.Update(examination);
             context.SaveChanges();
         }
+
+        public async Task UpdateExaminationAsync(long id, Examination updatedExamination)
+        {
+            examinations.Update(updatedExamination);
+            context.SaveChanges();
+        }
+
+        public Task<Examination> GetByPatientAsync(long id)
+            => examinations
+                .Where(examination => examination.PatientId == id)
+                .FirstOrDefaultAsync();
     }
 }

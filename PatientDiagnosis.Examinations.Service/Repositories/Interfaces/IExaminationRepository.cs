@@ -15,5 +15,7 @@ namespace PatientDiagnosis.Examinations.Service.Repositories.Interfaces
         Task<Examination[]> GetAllAsync();
 
         Task UpdateExaminationPredictionsAsync(ExaminationPrediction prediction);
+        Task UpdateExaminationAsync(long id, Examination examination);
+        Task<Examination> GetByPatientAsync(long id);
     }
 }
