@@ -7,7 +7,7 @@ namespace PatientDiagnosis.Statistics.Service.Models.DTO
 {
     public class RoundedPredictionFrequency
     {
-        public double RoandedPrediction { get; set; }
+        public float RoandedPrediction { get; set; }
         public int Frequency { get; set; }
     }
 }

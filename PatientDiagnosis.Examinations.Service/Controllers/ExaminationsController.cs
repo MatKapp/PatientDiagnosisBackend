@@ -52,6 +52,14 @@ namespace PatientDiagnosis.Examinations.Service.Controllers
             return Ok(patientExamination);
         }
 
+        [HttpGet]
+        [Route("/api/[controller]")]
+        public async Task<IActionResult> Get()
+        {
+            var examinations = await examinationRepository.GetAllAsync();
+            return Ok(examinations);
+        }
+
         [HttpPost]
         [Route("/api/[controller]")]
         public async Task<IActionResult> Post(Examination examination)
@@ -59,6 +67,14 @@ namespace PatientDiagnosis.Examinations.Service.Controllers
             await examinationRepository.AddAsync(examination);
 
             rabbitMqSendingMessageService.SendMessage(JsonSerializer.Serialize(examination), RabbitExchangeMapping.Examination);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("/api/[controller]/ConfirmTiaOccured/{id}")]
+        public async Task<IActionResult> ConfirmTiaOccured(long id, [FromBody]bool occurred)
+        {
+            await examinationRepository.UpdateTiaOccured(id, occurred);
             return Ok();
         }
 

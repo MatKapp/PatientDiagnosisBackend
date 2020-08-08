@@ -15,5 +15,6 @@
         public bool Vertigo { get; set; }
         public float FirstClassPrediction { get; set; }
         public float SecondClassPrediction { get; set; }
+        public bool TiaInTwoWeeksOccured { get; set; }
     }
 }

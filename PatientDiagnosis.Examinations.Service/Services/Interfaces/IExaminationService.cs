@@ -5,7 +5,6 @@ namespace PatientDiagnosis.Examinations.Service.Services.Interfaces
 {
     public interface IExaminationService
     {
-        void Add(Examination examination);
         Task<Examination[]> GetAllAsync();
     }
 }

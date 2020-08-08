@@ -35,7 +35,8 @@ namespace PatientDiagnosis.Patients.Service
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
             services.AddEntityFrameworkNpgsql().AddDbContext<PatientDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("PatientConnection")));
             services.AddSwaggerGen(c =>
             {

@@ -42,19 +42,28 @@ namespace PatientDiagnosis.Examinations.Service.Repositories
             var examination = await GetAsync(prediction.Id);
             examination.FirstClassPrediction = prediction.FirstClassPrediction;            
             examination.SecondClassPrediction= prediction.SecondClassPrediction;
-            examinations.Update(examination);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         public async Task UpdateExaminationAsync(long id, Examination updatedExamination)
         {
-            examinations.Update(updatedExamination);
-            context.SaveChanges();
+            var examination = await GetAsync(id);
+            updatedExamination.Id = id;
+            updatedExamination.PatientId = examination.PatientId;
+            context.Entry(examination).CurrentValues.SetValues(updatedExamination);
+            await context.SaveChangesAsync();
         }
 
         public Task<Examination> GetByPatientAsync(long id)
             => examinations
                 .Where(examination => examination.PatientId == id)
                 .FirstOrDefaultAsync();
+
+        public async Task UpdateTiaOccured(long examinationId, bool occurred)
+        {
+            var examination = await GetAsync(examinationId);
+            examination.TiaInTwoWeeksOccured = occurred;
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -14,11 +14,7 @@ namespace PatientDiagnosis.Examinations.Service.Services
         {
             this.examinationRepository = examinationRepository;
         }
-        public void Add(Examination patient)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public async Task<Examination[]> GetAllAsync()
             => await examinationRepository.GetAllAsync();
     }

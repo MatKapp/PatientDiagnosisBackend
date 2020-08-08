@@ -1,29 +1,24 @@
-﻿using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PatientDiagnosis.Common.Architecture;
-using PatientDiagnosis.Common.Architecture.Interfaces;
-using PatientDiagnosis.Examinations.Service.Models;
-using PatientDiagnosis.Examinations.Service.Models.Entities;
-using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
+using PatientDiagnosis.Examinations.Service.Services.Interfaces;
 
 namespace PatientDiagnosis.Examinations.Service.Controllers
 {
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        private readonly IExaminationRepository examinationRepository;
+        private readonly IExaminationService examinationsService;
 
-        public StatisticsController(IExaminationRepository examinationRepository)
+        public StatisticsController(IExaminationService examinationsService)
         {
-            this.examinationRepository = examinationRepository;
+            this.examinationsService = examinationsService;
         }
 
         [HttpGet]
         [Route("/api/[controller]/GetPredictionsFrequency/")]
         public async Task<IActionResult> GetPredictionsFrequency()
         {
-            var predictionFrequencies = await examinationRepository.GetPredictionFrequencyStatistics();
+            var predictionFrequencies = await examinationsService.GetPredictionFrequencyStatistics();
 
             return Ok(predictionFrequencies);
         }

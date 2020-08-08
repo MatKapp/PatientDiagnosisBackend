@@ -34,7 +34,8 @@ namespace PatientDiagnosis.Examinations.Service
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
             services.AddEntityFrameworkNpgsql().AddDbContext<ExaminationDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("ExaminationConnection")));
             services.AddSwaggerGen(c =>
             {
