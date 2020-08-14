@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PatientDiagnosis.Examinations.Service.Models;
-using PatientDiagnosis.Repositories.Interfaces;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using PatientDiagnosis.Examinations.Service.Models;
+using PatientDiagnosis.Examinations.Service.Models.DTO;
+using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
 
-namespace PatientDiagnosis.Repositories
+namespace PatientDiagnosis.Examinations.Service.Repositories
 {
     public class ExaminationRepository : IExaminationRepository
     {
@@ -31,6 +34,35 @@ namespace PatientDiagnosis.Repositories
         public async Task DeleteAsync(Examination examination)
         {
             examinations.Remove(examination);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateExaminationPredictionsAsync(ExaminationPrediction prediction)
+        {
+            var examination = await GetAsync(prediction.Id);
+            examination.FirstClassPrediction = prediction.FirstClassPrediction;            
+            examination.SecondClassPrediction= prediction.SecondClassPrediction;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateExaminationAsync(long id, Examination updatedExamination)
+        {
+            var examination = await GetAsync(id);
+            updatedExamination.Id = id;
+            updatedExamination.PatientId = examination.PatientId;
+            context.Entry(examination).CurrentValues.SetValues(updatedExamination);
+            await context.SaveChangesAsync();
+        }
+
+        public Task<Examination> GetByPatientAsync(long id)
+            => examinations
+                .Where(examination => examination.PatientId == id)
+                .FirstOrDefaultAsync();
+
+        public async Task UpdateTiaOccured(long examinationId, bool occurred)
+        {
+            var examination = await GetAsync(examinationId);
+            examination.TiaInTwoWeeksOccured = occurred;
             await context.SaveChangesAsync();
         }
     }

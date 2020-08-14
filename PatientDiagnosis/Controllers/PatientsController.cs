@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using PatientDiagnosis.Common.Architecture.Interfaces;
-using PatientDiagnosis.Common.Configuration;
-using PatientDiagnosis.Models;
-using PatientDiagnosis.Repositories.Interfaces;
-using PatientDiagnosis.Services.Interfaces;
-using RabbitMQ.Client;
-using System.Text;
+﻿using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using PatientDiagnosis.Common.Architecture;
+using PatientDiagnosis.Common.Architecture.Interfaces;
+using PatientDiagnosis.Patients.Service.Models;
+using PatientDiagnosis.Patients.Service.Repositories.Interfaces;
 
-namespace PatientDiagnosis.Controllers
+namespace PatientDiagnosis.Patients.Service.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -45,7 +42,7 @@ namespace PatientDiagnosis.Controllers
         {
             await patientRepository.AddAsync(patient);
 
-            rabbitMqSendingMessageService.SendMessage("HelloWorlds");
+            rabbitMqSendingMessageService.SendMessage(JsonSerializer.Serialize(patient), RabbitExchangeMapping.Examination);
             return Ok();
         }
 

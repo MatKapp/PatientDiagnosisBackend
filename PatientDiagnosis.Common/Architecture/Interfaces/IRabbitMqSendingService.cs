@@ -2,6 +2,6 @@
 {
     public interface IRabbitMqSendingService
     {
-        void SendMessage(string message);
+        void SendMessage(string message,string binding = "");
     }
 }

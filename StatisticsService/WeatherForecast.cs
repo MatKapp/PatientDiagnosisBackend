@@ -1,6 +1,6 @@
 using System;
 
-namespace OcelotGateway
+namespace StatisticsService
 {
     public class WeatherForecast
     {

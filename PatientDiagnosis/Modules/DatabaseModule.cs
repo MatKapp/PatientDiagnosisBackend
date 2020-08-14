@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using PatientDiagnosis.Models;
+using PatientDiagnosis.Patients.Service.Models;
 
-namespace PatientDiagnosis.Modules
+namespace PatientDiagnosis.Patients.Service.Modules
 {
     public class DatabaseModule : Module
     {
@@ -10,8 +10,6 @@ namespace PatientDiagnosis.Modules
             builder
                 .RegisterType<PatientDbContext>()
                 .InstancePerLifetimeScope();
-
-
         }
     }
 }

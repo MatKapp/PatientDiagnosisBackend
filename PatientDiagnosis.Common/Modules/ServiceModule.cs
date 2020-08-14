@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using PatientDiagnosis.Common.Architecture;
 using PatientDiagnosis.Common.Architecture.Interfaces;
-namespace PatientDiagnosis.Modules
+
+namespace PatientDiagnosis.Common.Modules
 {
     public class ServiceModule : Module
     {

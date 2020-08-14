@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using PatientDiagnosis.Repositories;
-using PatientDiagnosis.Repositories.Interfaces;
+using PatientDiagnosis.Examinations.Service.Repositories;
+using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
 
-namespace PatientDiagnosis.Modules
+namespace PatientDiagnosis.Examinations.Service.Modules
 {
     public class RepositoryModule : Module
     {

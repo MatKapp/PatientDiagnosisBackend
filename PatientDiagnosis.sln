@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientDiagnosis.Common", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientDiagnosis.Examinations.Service", "PatientDiagnosis.Examinations.Service\PatientDiagnosis.Examinations.Service.csproj", "{9023EC71-B386-45F2-B671-4AECD4A9935B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotGateway", "OcelotGateway\OcelotGateway.csproj", "{2FDBCFDD-CCC8-4D1C-B499-21E82BDDCDA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotGateway", "OcelotGateway\OcelotGateway.csproj", "{2FDBCFDD-CCC8-4D1C-B499-21E82BDDCDA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientDiagnosis.Statistics.Service", "PatientDiagnosis.Statistics.Service\PatientDiagnosis.Statistics.Service.csproj", "{ED1C6CA9-FB6D-46D9-A5C9-29E8163A71DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2FDBCFDD-CCC8-4D1C-B499-21E82BDDCDA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FDBCFDD-CCC8-4D1C-B499-21E82BDDCDA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FDBCFDD-CCC8-4D1C-B499-21E82BDDCDA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1C6CA9-FB6D-46D9-A5C9-29E8163A71DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1C6CA9-FB6D-46D9-A5C9-29E8163A71DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1C6CA9-FB6D-46D9-A5C9-29E8163A71DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1C6CA9-FB6D-46D9-A5C9-29E8163A71DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

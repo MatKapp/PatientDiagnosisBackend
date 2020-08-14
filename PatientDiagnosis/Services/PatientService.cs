@@ -1,18 +1,16 @@
-﻿using PatientDiagnosis.Models;
-using PatientDiagnosis.Repositories.Interfaces;
-using PatientDiagnosis.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
+using PatientDiagnosis.Patients.Service.Models;
+using PatientDiagnosis.Patients.Service.Repositories.Interfaces;
+using PatientDiagnosis.Patients.Service.Services.Interfaces;
 
-namespace PatientDiagnosis.Services
+namespace PatientDiagnosis.Patients.Service.Services
 {
     public class PatientService : IPatientService
     {
         private readonly IPatientRepository patientRepository;
 
-        public PatientService( IPatientRepository patientRepository)
+        public PatientService(IPatientRepository patientRepository)
         {
             this.patientRepository = patientRepository;
         }

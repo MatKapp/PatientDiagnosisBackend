@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace PatientDiagnosis.Models.Maps
+namespace PatientDiagnosis.Patients.Service.Models.Maps
 {
     public class PatientMap
     {

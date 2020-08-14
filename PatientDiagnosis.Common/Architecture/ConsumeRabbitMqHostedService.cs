@@ -1,14 +1,14 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using PatientDiagnosis.Common.Configuration;
-using PatientDiagnosis.Common.Services.Interfaces;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using PatientDiagnosis.Common.Architecture.Interfaces;
+using PatientDiagnosis.Common.Configuration;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
-namespace PatientDiagnosis.Architecture
+namespace PatientDiagnosis.Common.Architecture
 {
     public class ConsumeRabbitMqHostedService : BackgroundService
     {
@@ -31,7 +31,7 @@ namespace PatientDiagnosis.Architecture
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
             channel.QueueDeclare(configuration.Queue, false, false, false, null);
-            channel.QueueBind(configuration.Queue, configuration.Exchange, $"{configuration.Queue}.*", null);
+            channel.QueueBind(configuration.Queue, configuration.Exchange, configuration.Queue, null);
             channel.BasicQos(0, 1, false);
             connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
         }
@@ -47,11 +47,14 @@ namespace PatientDiagnosis.Architecture
                 var content = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
 
                 // handle the received message  
-                HandleMessage(content);
+                HandleMessage(content, ch, ea);
                 channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            channel.BasicConsume(configuration.Queue, false, consumer);
+            if (!String.IsNullOrEmpty(configuration.QueueToListen))
+            {
+                channel.BasicConsume(configuration.QueueToListen, false, consumer);
+            }
             return Task.CompletedTask;
         }
 
@@ -60,9 +63,9 @@ namespace PatientDiagnosis.Architecture
             throw new NotImplementedException();
         }
 
-        private void HandleMessage(string content)
+        private void HandleMessage(string content, object ch, BasicDeliverEventArgs ea)
         {
-            rabbitMQHandler.HandleMessage(content);   
+            rabbitMQHandler.HandleMessage(content, ea.RoutingKey);   
         }
     }
 }

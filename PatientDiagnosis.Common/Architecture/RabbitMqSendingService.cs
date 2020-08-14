@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Text;
+using Microsoft.Extensions.Options;
 using PatientDiagnosis.Common.Architecture.Interfaces;
 using PatientDiagnosis.Common.Configuration;
 using RabbitMQ.Client;
-using System.Text;
 
 namespace PatientDiagnosis.Common.Architecture
 {
@@ -15,8 +15,10 @@ namespace PatientDiagnosis.Common.Architecture
             this.configuration = configuration.Value;
         }
 
-        public void SendMessage(string message)
+        public void SendMessage(string message, string binding = "")
         {
+            if (string.IsNullOrEmpty(binding))
+                binding = configuration.Queue;
             var factory = new ConnectionFactory() { HostName = configuration.Address };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
@@ -24,7 +26,7 @@ namespace PatientDiagnosis.Common.Architecture
             channel.QueueDeclare(configuration.Queue, false, false, false, null);
             var body = Encoding.UTF8.GetBytes(message);
 
-            channel.BasicPublish(exchange: configuration.Exchange, routingKey: $"{configuration.Queue}.*", null, body);
+            channel.BasicPublish(exchange: configuration.Exchange, routingKey: binding, null, body);
         }
     }
 }

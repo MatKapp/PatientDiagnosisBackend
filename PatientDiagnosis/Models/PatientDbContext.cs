@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PatientDiagnosis.Models.Maps;
-using System;
+using PatientDiagnosis.Patients.Service.Models.Maps;
 
-namespace PatientDiagnosis.Models
+namespace PatientDiagnosis.Patients.Service.Models
 {
     public class PatientDbContext : DbContext
     {

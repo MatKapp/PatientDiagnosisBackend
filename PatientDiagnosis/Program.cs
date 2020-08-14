@@ -1,9 +1,8 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace PatientDiagnosis
+namespace PatientDiagnosis.Patients.Service
 {
     public class Program
     {

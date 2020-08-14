@@ -1,10 +1,10 @@
-﻿using PatientDiagnosis.Examinations.Service.Models;
-using PatientDiagnosis.Repositories.Interfaces;
-using PatientDiagnosis.Services.Interfaces;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
+using PatientDiagnosis.Examinations.Service.Services.Interfaces;
 
-namespace PatientDiagnosis.Services
+namespace PatientDiagnosis.Examinations.Service.Services
 {
     public class ExaminationService : IExaminationService
     {
@@ -14,11 +14,7 @@ namespace PatientDiagnosis.Services
         {
             this.examinationRepository = examinationRepository;
         }
-        public void Add(Examination patient)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public async Task<Examination[]> GetAllAsync()
             => await examinationRepository.GetAllAsync();
     }

@@ -1,4 +1,4 @@
-﻿namespace PatientDiagnosis.Models
+﻿namespace PatientDiagnosis.Patients.Service.Models
 {
     public class Patient
     {

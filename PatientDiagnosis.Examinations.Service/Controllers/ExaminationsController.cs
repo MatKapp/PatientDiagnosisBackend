@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using PatientDiagnosis.Common.Architecture;
 using PatientDiagnosis.Common.Architecture.Interfaces;
 using PatientDiagnosis.Examinations.Service.Models;
-using PatientDiagnosis.Repositories.Interfaces;
-using System.Threading.Tasks;
+using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
 
-namespace PatientDiagnosis.Controllers
+namespace PatientDiagnosis.Examinations.Service.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class ExaminationsController : ControllerBase
     {
         private readonly IExaminationRepository examinationRepository;
@@ -21,13 +23,16 @@ namespace PatientDiagnosis.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
-            => Ok(await examinationRepository.GetAllAsync());
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        [Route("/api/[controller]/{id?}")]
+        public async Task<IActionResult> Get(long? id)
         {
-            var examination = await examinationRepository.GetAsync(id);
+            if (id is null)
+            {
+                var examinations = await examinationRepository.GetAllAsync();
+                return Ok(examinations);
+            }
+
+            var examination = await examinationRepository.GetAsync(id.Value);
 
             if (examination is null)
                 return NotFound();
@@ -35,16 +40,46 @@ namespace PatientDiagnosis.Controllers
             return Ok(examination);
         }
 
+        [HttpGet]
+        [Route("/api/[controller]/GetByPatient/{id}")]
+        public async Task<IActionResult> GetByPatient(long id)
+        {
+            var patientExamination = await examinationRepository.GetByPatientAsync(id);
+
+            if (patientExamination is null)
+                return NotFound();
+
+            return Ok(patientExamination);
+        }
+
+        [HttpGet]
+        [Route("/api/[controller]")]
+        public async Task<IActionResult> Get()
+        {
+            var examinations = await examinationRepository.GetAllAsync();
+            return Ok(examinations);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Examination examination)
+        [Route("/api/[controller]")]
+        public async Task<IActionResult> Post(Examination examination)
         {
             await examinationRepository.AddAsync(examination);
 
-            rabbitMqSendingMessageService.SendMessage("HelloWorlds");
+            rabbitMqSendingMessageService.SendMessage(JsonSerializer.Serialize(examination), RabbitExchangeMapping.Examination);
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost]
+        [Route("/api/[controller]/ConfirmTiaOccured/{id}")]
+        public async Task<IActionResult> ConfirmTiaOccured(long id, [FromBody]bool occurred)
+        {
+            await examinationRepository.UpdateTiaOccured(id, occurred);
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("/api/[controller]/{id}")]
         public async Task<IActionResult> Delete(long id)
         {
             var examination = await examinationRepository.GetAsync(id);
@@ -53,6 +88,19 @@ namespace PatientDiagnosis.Controllers
                 return NotFound();
 
             await examinationRepository.DeleteAsync(examination);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("/api/[controller]/{id}")]
+        public async Task<IActionResult> Put(long id, [FromBody]Examination examination)
+        {
+            await examinationRepository.UpdateExaminationAsync(id, examination);
+
+            examination.Id = id;
+            rabbitMqSendingMessageService.SendMessage(JsonSerializer.Serialize(examination), RabbitExchangeMapping.Examination);
+
 
             return Ok();
         }
