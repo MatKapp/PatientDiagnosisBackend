@@ -12,6 +12,6 @@ namespace PatientDiagnosis.Patients.Service.Repositories.Interfaces
         Task<Patient> GetAsync(long id);
 
         Task<Patient[]> GetAllAsync();
-
+        Task UpdatePatientAsync(long id, Patient patient);
     }
 }

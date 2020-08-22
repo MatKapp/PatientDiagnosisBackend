@@ -38,7 +38,7 @@ def callback(ch, method, properties, body):
     deserializedBody = json.loads(decodedBody)
     experimentArray = createArrayFromBody(deserializedBody)
     prediction = loaded_model.predict_proba([experimentArray])
-    response = {"Id": deserializedBody["Id"], "FirstClassPrediction": prediction[0][0], "SecondClassPrediction": prediction[0][1]}
+    response = {"Id": deserializedBody["Id"], "FirstClassPrediction": round(prediction[0][0], 2), "SecondClassPrediction": round(prediction[0][1], 2)}
     RabbitMQAdapter.send_message(ch, examination_prediction_queue_name, json.dumps(response))
 
 

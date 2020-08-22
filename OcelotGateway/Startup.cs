@@ -23,9 +23,10 @@ namespace OcelotGateway
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    builder => builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed((x) => true));
             });
             services.AddControllers();
             services.AddOcelot(Configuration);
@@ -34,13 +35,14 @@ namespace OcelotGateway
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseRouting();
-            app.UseCors("CorsPolicy");
+            app.UseWebSockets();
             app.UseOcelot().Wait();
 
             app.UseHttpsRedirection();

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PatientDiagnosis.Common.Architecture;
 using PatientDiagnosis.Common.Configuration;
+using PatientDiagnosis.Examinations.Service.HubConfig;
 using PatientDiagnosis.Examinations.Service.Models;
 
 namespace PatientDiagnosis.Examinations.Service
@@ -30,10 +31,12 @@ namespace PatientDiagnosis.Examinations.Service
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    builder => builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed((x) => true));
             });
+            services.AddSignalR();
             services.AddControllers()
                 .AddNewtonsoftJson();
             services.AddEntityFrameworkNpgsql().AddDbContext<ExaminationDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("ExaminationConnection")));
@@ -63,13 +66,14 @@ namespace PatientDiagnosis.Examinations.Service
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             
             app.UseRouting();
-            app.UseCors("CorsPolicy");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -83,6 +87,7 @@ namespace PatientDiagnosis.Examinations.Service
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ExaminationPredictionHub>("/predictions");
             });
         }
     }

@@ -1,8 +1,10 @@
 ﻿using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using PatientDiagnosis.Common.Architecture;
 using PatientDiagnosis.Common.Architecture.Interfaces;
+using PatientDiagnosis.Examinations.Service.HubConfig;
 using PatientDiagnosis.Examinations.Service.Models;
 using PatientDiagnosis.Examinations.Service.Models.Entities;
 using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;

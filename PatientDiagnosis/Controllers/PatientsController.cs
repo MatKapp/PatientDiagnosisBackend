@@ -41,8 +41,14 @@ namespace PatientDiagnosis.Patients.Service.Controllers
         public async Task<IActionResult> Post([FromBody] Patient patient)
         {
             await patientRepository.AddAsync(patient);
+            return Ok();
+        }
 
-            rabbitMqSendingMessageService.SendMessage(JsonSerializer.Serialize(patient), RabbitExchangeMapping.Examination);
+        [HttpPut]
+        [Route("/api/[controller]/{id}")]
+        public async Task<IActionResult> Put(long id, [FromBody]Patient patient)
+        {
+            await patientRepository.UpdatePatientAsync(id, patient);
             return Ok();
         }
 

@@ -1,7 +1,9 @@
-﻿namespace PatientDiagnosis.Common.Architecture.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace PatientDiagnosis.Common.Architecture.Interfaces
 {
     public interface IRabbitMQHandler
     {
-        void  HandleMessage(string message, string routingKey);
+        Task HandleMessageAsync(string message, string routingKey);
     }
 }

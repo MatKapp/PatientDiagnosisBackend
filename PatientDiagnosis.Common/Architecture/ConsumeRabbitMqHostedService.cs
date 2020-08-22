@@ -36,18 +36,18 @@ namespace PatientDiagnosis.Common.Architecture
             connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             stoppingToken.ThrowIfCancellationRequested();
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (ch, ea) =>
+            consumer.Received += async (ch, ea) =>
             {
                 // received message  
                 var content = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
 
                 // handle the received message  
-                HandleMessage(content, ch, ea);
+                await HandleMessageAsync(content, ch, ea);
                 channel.BasicAck(ea.DeliveryTag, false);
             };
 
@@ -55,7 +55,6 @@ namespace PatientDiagnosis.Common.Architecture
             {
                 channel.BasicConsume(configuration.QueueToListen, false, consumer);
             }
-            return Task.CompletedTask;
         }
 
         private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
@@ -63,9 +62,9 @@ namespace PatientDiagnosis.Common.Architecture
             throw new NotImplementedException();
         }
 
-        private void HandleMessage(string content, object ch, BasicDeliverEventArgs ea)
+        private async Task HandleMessageAsync(string content, object ch, BasicDeliverEventArgs ea)
         {
-            rabbitMQHandler.HandleMessage(content, ea.RoutingKey);   
+            await rabbitMQHandler.HandleMessageAsync(content, ea.RoutingKey);   
         }
     }
 }

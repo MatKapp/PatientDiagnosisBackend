@@ -33,5 +33,13 @@ namespace PatientDiagnosis.Patients.Service.Repositories
             patients.Remove(patient);
             await context.SaveChangesAsync();
         }
+
+        public async Task UpdatePatientAsync(long id, Patient updatedPatient)
+        {
+            var patient = await GetAsync(id);
+            updatedPatient.Id = id;
+            context.Entry(patient).CurrentValues.SetValues(updatedPatient);
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PatientDiagnosis.Examinations.Service.Models;
@@ -40,8 +41,10 @@ namespace PatientDiagnosis.Examinations.Service.Repositories
         public async Task UpdateExaminationPredictionsAsync(ExaminationPrediction prediction)
         {
             var examination = await GetAsync(prediction.Id);
-            examination.FirstClassPrediction = prediction.FirstClassPrediction;            
-            examination.SecondClassPrediction= prediction.SecondClassPrediction;
+            examination.FirstClassPrediction = (float)Math.Round(prediction.FirstClassPrediction, 2);
+            examination.SecondClassPrediction= (float)Math.Round(prediction.SecondClassPrediction, 2);
+            context.Entry(examination).Property("FirstClassPrediction").IsModified = true;
+            context.Entry(examination).Property("SecondClassPrediction").IsModified = true;
             await context.SaveChangesAsync();
         }
 
@@ -63,6 +66,7 @@ namespace PatientDiagnosis.Examinations.Service.Repositories
         {
             var examination = await GetAsync(examinationId);
             examination.TiaInTwoWeeksOccured = occurred;
+            context.Entry(examination).Property("TiaInTwoWeeksOccured").IsModified = true;
             await context.SaveChangesAsync();
         }
     }

@@ -5,10 +5,12 @@ using PatientDiagnosis.Statistics.Service.Models.DTO;
 
 namespace PatientDiagnosis.Examinations.Service.Services.Interfaces
 {
-    public interface IExaminationService
+    public interface IStatisticsService
     {
         Task<IEnumerable<RoundedPredictionFrequency>> GetPredictionFrequencyStatistics();
 
-        Task<Examination[]> GetAllAsync();
+        Task<IEnumerable<AggregatedAgeFrequency>> GetAgeFrequencyStatistics(int interval);
+
+        Task<Examination[]> GetAllExaminationsAsync();
     }
 }

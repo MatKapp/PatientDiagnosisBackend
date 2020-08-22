@@ -11,7 +11,7 @@ namespace PatientDiagnosis.Examinations.Service.Modules
         {
             builder
                 .RegisterType<ExaminationService>()
-                .As<IExaminationService>()
+                .As<IStatisticsService>()
                 .SingleInstance();
         }
     }

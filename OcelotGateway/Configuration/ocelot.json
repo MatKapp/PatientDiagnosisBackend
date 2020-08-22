@@ -1,6 +1,30 @@
 {
   "ReRoutes": [
     {
+      "DownstreamPathTemplate": "/predictions",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44319
+        }
+      ],
+      "UpstreamPathTemplate": "/predictions",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/predictions/{parameter}",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44319
+        }
+      ],
+      "UpstreamPathTemplate": "/predictions/{parameter}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/Patients/",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -10,6 +34,23 @@
         }
       ],
       "UpstreamPathTemplate": "/api/Patients/",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Patients/{parameter}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44342
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Patients/{parameter}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
