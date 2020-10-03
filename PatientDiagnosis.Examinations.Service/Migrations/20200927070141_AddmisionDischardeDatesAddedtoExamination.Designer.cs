@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PatientDiagnosis.Examinations.Service.Models;
@@ -9,9 +10,10 @@ using PatientDiagnosis.Examinations.Service.Models;
 namespace PatientDiagnosis.Examinations.Service.Migrations
 {
     [DbContext(typeof(ExaminationDbContext))]
-    partial class ExaminationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200927070141_AddmisionDischardeDatesAddedtoExamination")]
+    partial class AddmisionDischardeDatesAddedtoExamination
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace PatientDiagnosis.Examinations.Service.Migrations
                         .HasColumnName("body_weakness")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("DischargeDate")
+                    b.Property<DateTime>("DischargeDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<float>("FirstClassPrediction")

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PatientDiagnosis.Common.Models.Entities;
 using PatientDiagnosis.Examinations.Service.Models;
 using PatientDiagnosis.Examinations.Service.Models.DTO;
-using PatientDiagnosis.Examinations.Service.Models.Entities;
 using PatientDiagnosis.Examinations.Service.Repositories.Interfaces;
 
 namespace PatientDiagnosis.Examinations.Service.Repositories
@@ -19,10 +20,11 @@ namespace PatientDiagnosis.Examinations.Service.Repositories
             this.context = context;
             this.examinations = context.Set<Examination>();
         }
-        public async Task AddAsync(Examination examination)
+        public async Task<long> AddAsync(Examination examination)
         {
             await examinations.AddAsync(examination);
             await context.SaveChangesAsync();
+            return examination.Id;
         }
 
         public Task<Examination> GetAsync(long id)
@@ -61,6 +63,17 @@ namespace PatientDiagnosis.Examinations.Service.Repositories
             => examinations
                 .Where(examination => examination.PatientId == id)
                 .FirstOrDefaultAsync();
+        
+        public Task<VisitDto[]> GetPatientVisists(long id)
+            => examinations
+                .Where(examination => examination.PatientId == id)
+                .Select(examination => new VisitDto 
+                {
+                    AdmissionDate = examination.AdmissionDate,
+                    DischargeDate = examination.DischargeDate.GetValueOrDefault().Date,
+                    ExaminationId = examination.Id,
+                    IsFinished = examination.DischargeDate.HasValue
+                }).ToArrayAsync();
 
         public async Task UpdateTiaOccured(long examinationId, bool occurred)
         {

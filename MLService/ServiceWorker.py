@@ -2,6 +2,7 @@ import RabbitMQAdapter
 import pickle
 import numpy as np
 import json
+import math
 
 examination_queue_name = 'examination'
 examination_prediction_queue_name = 'examination.prediction'
@@ -23,13 +24,13 @@ class NoneSampler(object):
 
 def createArrayFromBody(deserializedBody):
     a = np.full(64, dtype=float, fill_value=0.0)
-    a[6] = deserializedBody["InitialDbp"] #dbp
-    a[29] = deserializedBody["Infraction"] #my_infract
-    a[32] = deserializedBody["BodyWeakness"] #my_weakness
-    a[33] = deserializedBody["GaitDisturb"] #my_gait
-    a[34] = deserializedBody["Vertigo"] #my_vertigo_syncope
-    a[35] = deserializedBody["SpeechDif"] #my_lang_speech
-    a[36] = deserializedBody["AtrialFibrillation"] #my_afib
+    a[6] = 0.0 if deserializedBody["InitialDbp"] is None else deserializedBody["InitialDbp"] #dbp
+    a[29] = 0.0 if deserializedBody["Infraction"] is None else deserializedBody["Infraction"] #my_infract
+    a[32] = 0.0 if deserializedBody["BodyWeakness"] is None else deserializedBody["BodyWeakness"] #my_weakness
+    a[33] = 0.0 if deserializedBody["GaitDisturb"] is None else deserializedBody["GaitDisturb"] #my_gait
+    a[34] = 0.0 if deserializedBody["Vertigo"] is None else deserializedBody["Vertigo"] #my_vertigo_syncope
+    a[35] = 0.0 if deserializedBody["SpeechDif"] is None else deserializedBody["SpeechDif"] #my_lang_speech
+    a[36] = 0.0 if deserializedBody["AtrialFibrillation"] is None else deserializedBody["AtrialFibrillation"] #my_afib
     return a
 
 

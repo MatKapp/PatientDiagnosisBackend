@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Common.Models.Entities;
 
 namespace PatientDiagnosis.Examinations.Service.Models.Maps
 {

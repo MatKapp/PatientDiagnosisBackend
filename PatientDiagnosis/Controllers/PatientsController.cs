@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PatientDiagnosis.Common.Architecture;
@@ -40,8 +41,10 @@ namespace PatientDiagnosis.Patients.Service.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Patient patient)
         {
+            patient.Id = null;
+            patient.AdmissionDate = DateTime.UtcNow;
             await patientRepository.AddAsync(patient);
-            return Ok();
+            return Ok(patient);
         }
 
         [HttpPut]

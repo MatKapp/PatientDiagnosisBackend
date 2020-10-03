@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using PatientDiagnosis.Common.Architecture.Interfaces;
 using PatientDiagnosis.Patients.Service.Services;
-using PatientDiagnosis.Patients.Service.Services.Interfaces;
 
 namespace PatientDiagnosis.Patients.Service.Modules
 {
@@ -9,11 +8,6 @@ namespace PatientDiagnosis.Patients.Service.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder
-                .RegisterType<PatientService>()
-                .As<IPatientService>()
-                .SingleInstance();
-
             builder
                 .RegisterType<RabbitMQHandler>()
                 .As<IRabbitMQHandler>()

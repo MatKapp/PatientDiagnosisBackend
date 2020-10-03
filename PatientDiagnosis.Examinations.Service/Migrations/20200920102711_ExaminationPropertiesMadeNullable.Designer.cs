@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PatientDiagnosis.Examinations.Service.Models;
@@ -9,9 +10,10 @@ using PatientDiagnosis.Examinations.Service.Models;
 namespace PatientDiagnosis.Examinations.Service.Migrations
 {
     [DbContext(typeof(ExaminationDbContext))]
-    partial class ExaminationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200920102711_ExaminationPropertiesMadeNullable")]
+    partial class ExaminationPropertiesMadeNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,26 +21,21 @@ namespace PatientDiagnosis.Examinations.Service.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("PatientDiagnosis.Common.Models.Entities.Examination", b =>
+            modelBuilder.Entity("PatientDiagnosis.Examinations.Service.Models.Entities.Examination", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("AdmissionDate")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<bool?>("AtrialFibrillation")
+                        .IsRequired()
                         .HasColumnName("atrial_fibrillation")
                         .HasColumnType("boolean");
 
                     b.Property<bool?>("BodyWeakness")
                         .HasColumnName("body_weakness")
                         .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("DischargeDate")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<float>("FirstClassPrediction")
                         .HasColumnType("real");
@@ -48,18 +45,22 @@ namespace PatientDiagnosis.Examinations.Service.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool?>("GaitDisturb")
+                        .IsRequired()
                         .HasColumnName("gait_disturb")
                         .HasColumnType("boolean");
 
                     b.Property<bool?>("HighGlucose")
+                        .IsRequired()
                         .HasColumnName("high_glucose")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("Infraction")
+                        .IsRequired()
                         .HasColumnName("infraction")
                         .HasColumnType("integer");
 
                     b.Property<int?>("InitialDbp")
+                        .IsRequired()
                         .HasColumnName("initial_dbp")
                         .HasColumnType("integer");
 
@@ -71,6 +72,7 @@ namespace PatientDiagnosis.Examinations.Service.Migrations
                         .HasColumnType("real");
 
                     b.Property<bool?>("SpeechDif")
+                        .IsRequired()
                         .HasColumnName("speech_dif")
                         .HasColumnType("boolean");
 
@@ -78,6 +80,7 @@ namespace PatientDiagnosis.Examinations.Service.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool?>("Vertigo")
+                        .IsRequired()
                         .HasColumnName("vertigo")
                         .HasColumnType("boolean");
 

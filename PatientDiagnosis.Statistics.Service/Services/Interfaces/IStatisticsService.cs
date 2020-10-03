@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Common.Models.Entities;
 using PatientDiagnosis.Statistics.Service.Models.DTO;
 
 namespace PatientDiagnosis.Examinations.Service.Services.Interfaces
@@ -10,6 +10,10 @@ namespace PatientDiagnosis.Examinations.Service.Services.Interfaces
         Task<IEnumerable<RoundedPredictionFrequency>> GetPredictionFrequencyStatistics();
 
         Task<IEnumerable<AggregatedAgeFrequency>> GetAgeFrequencyStatistics(int interval);
+
+        Task<IEnumerable<TiaOccuredFrequency>> GetTiaOccuredFrequencyStatistics();
+
+        Task<IEnumerable<ObservationOccurenceRatio>> GetObservationsRatioByTiaOccured(bool tiaOccured);
 
         Task<Examination[]> GetAllExaminationsAsync();
     }

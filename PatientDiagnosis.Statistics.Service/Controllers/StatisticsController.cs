@@ -31,5 +31,23 @@ namespace PatientDiagnosis.Examinations.Service.Controllers
 
             return Ok(predictionFrequencies);
         }
+
+        [HttpGet]
+        [Route("/api/[controller]/GetTiaOccuredFrequency/")]
+        public async Task<IActionResult> GetTiaOccuredFrequency()
+        {
+            var tiaOccuredFrequencies = await statisticsService.GetTiaOccuredFrequencyStatistics();
+
+            return Ok(tiaOccuredFrequencies);
+        }
+
+        [HttpGet]
+        [Route("/api/[controller]/GetObservationsRatioByTiaOccured/{occured}")]
+        public async Task<IActionResult> GetObservationsRatioByTiaOccured(bool occured)
+        {
+            var observationsRatio = await statisticsService.GetObservationsRatioByTiaOccured(occured);
+
+            return Ok(observationsRatio);
+        }
     }
 }

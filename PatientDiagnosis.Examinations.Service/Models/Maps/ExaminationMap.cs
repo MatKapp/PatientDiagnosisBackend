@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PatientDiagnosis.Examinations.Service.Models.Entities;
+using PatientDiagnosis.Common.Models.Entities;
 
 namespace PatientDiagnosis.Examinations.Service.Models.Maps
 {
@@ -15,40 +15,31 @@ namespace PatientDiagnosis.Examinations.Service.Models.Maps
                 .HasColumnName("patient_id");
 
             entityBuilder.Property(examination => examination.Infraction)
-                .HasColumnName("infraction")
-                .IsRequired();
+                .HasColumnName("infraction");
 
             entityBuilder.Property(examination => examination.InitialDbp)
-                .HasColumnName("initial_dbp")
-                .IsRequired();
+                .HasColumnName("initial_dbp");
 
             entityBuilder.Property(examination => examination.AtrialFibrillation)
-                .HasColumnName("atrial_fibrillation")
-                .IsRequired();
+                .HasColumnName("atrial_fibrillation");
 
             entityBuilder.Property(examination => examination.BodyWeakness)
-                .HasColumnName("body_weakness")
-                .IsRequired();
+                .HasColumnName("body_weakness");
 
             entityBuilder.Property(examination => examination.FirstTia)
-                .HasColumnName("first_tia")
-                .IsRequired();
+                .HasColumnName("first_tia");
 
             entityBuilder.Property(examination => examination.GaitDisturb)
-                .HasColumnName("gait_disturb")
-                .IsRequired();
+                .HasColumnName("gait_disturb");
 
             entityBuilder.Property(examination => examination.HighGlucose)
-                .HasColumnName("high_glucose")
-                .IsRequired();
+                .HasColumnName("high_glucose");
 
             entityBuilder.Property(examination => examination.SpeechDif)
-                .HasColumnName("speech_dif")
-                .IsRequired();
+                .HasColumnName("speech_dif");
 
             entityBuilder.Property(examination => examination.Vertigo)
-                .HasColumnName("vertigo")
-                .IsRequired();
+                .HasColumnName("vertigo");
         }
     }
 }

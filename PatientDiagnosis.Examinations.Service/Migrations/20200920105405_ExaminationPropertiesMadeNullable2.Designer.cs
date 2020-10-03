@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PatientDiagnosis.Examinations.Service.Models;
@@ -9,9 +10,10 @@ using PatientDiagnosis.Examinations.Service.Models;
 namespace PatientDiagnosis.Examinations.Service.Migrations
 {
     [DbContext(typeof(ExaminationDbContext))]
-    partial class ExaminationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200920105405_ExaminationPropertiesMadeNullable2")]
+    partial class ExaminationPropertiesMadeNullable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,15 +21,12 @@ namespace PatientDiagnosis.Examinations.Service.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("PatientDiagnosis.Common.Models.Entities.Examination", b =>
+            modelBuilder.Entity("PatientDiagnosis.Examinations.Service.Models.Entities.Examination", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("AdmissionDate")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool?>("AtrialFibrillation")
                         .HasColumnName("atrial_fibrillation")
@@ -36,9 +35,6 @@ namespace PatientDiagnosis.Examinations.Service.Migrations
                     b.Property<bool?>("BodyWeakness")
                         .HasColumnName("body_weakness")
                         .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("DischargeDate")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<float>("FirstClassPrediction")
                         .HasColumnType("real");
